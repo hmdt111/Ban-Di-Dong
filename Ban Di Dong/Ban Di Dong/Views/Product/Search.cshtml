@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Ban_Di_Dong.ViewModels.ProductVM>
+@{
+    ViewData["Title"] = "Search";
+    Layout = "_DanhSachProduct";
+}
+<h1>Search</h1>
+<h4>Có <b>@Model.Count()</b> sản phẩm</h4>
+@await Html.PartialAsync("ProductItem", Model)
