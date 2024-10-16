@@ -1,0 +1,59 @@
+﻿@model Ban_Di_Dong.ViewModels.RegisterVM
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <h1 class="mb-4">Đăng Ký</h1>
+        <form asp-action="DangKy" enctype="multipart/form-data">
+            <div class="row">
+                <div class="form-item">
+                    <label asp-for="@Model.UserName" class="form-label my-3"></label><sup>*</sup>
+                    <input asp-for="@Model.UserName" class="form-control">
+                    <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                </div>
+                <div class="form-item">
+                    <label asp-for="@Model.UserEmail" class="form-label my-3"></label><sup>*</sup>
+                    <input asp-for="@Model.UserEmail" class="form-control">
+                    <span asp-validation-for="@Model.UserEmail" class="text-danger"></span>
+                </div>
+                <div class="form-item">
+                    <label asp-for="@Model.Password" class="form-label my-3"></label><sup>*</sup>
+                    <input asp-for="@Model.Password" class="form-control">
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                </div>
+                <div class="form-item">
+                    <label asp-for="@Model.HoTen" class="form-label my-3"></label><sup>*</sup>
+                    <input asp-for="@Model.HoTen" class="form-control">
+                    <span asp-validation-for="@Model.HoTen" class="text-danger"></span>
+                </div>
+                <div class="form-item">
+                    <label asp-for="@Model.DiaChi" class="form-label my-3"></label><sup>*</sup>
+                    <input asp-for="@Model.DiaChi" class="form-control">
+                    <span asp-validation-for="@Model.DiaChi" class="text-danger"></span>
+                </div>
+
+                <div class="form-item">
+                    <label asp-for="@Model.UserPhoneNumber" class="form-label my-3"></label><sup>*</sup>
+                    <input asp-for="@Model.UserPhoneNumber" class="form-control">
+                    <span asp-validation-for="@Model.UserPhoneNumber" class="text-danger"></span>
+                </div>
+               
+
+                <div class="form-item">
+                    <label asp-for="@Model.NgaySinh" class="form-label my-3"></label>
+                    <input asp-for="@Model.NgaySinh" class="form-control">
+                    <span asp-validation-for="@Model.NgaySinh" class="text-danger"></span>
+                </div>
+
+                <div class="row g-4 text-center align-items-center justify-content-center pt-4">
+                    <button type="submit" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Đăng ký</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+

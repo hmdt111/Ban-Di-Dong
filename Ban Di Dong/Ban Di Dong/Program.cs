@@ -1,4 +1,6 @@
 using Ban_Di_Dong.Data;
+using Ban_Di_Dong.Helpers;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +20,12 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.LoginPath = "/KhachHang/DangNhap";
+    options.AccessDeniedPath = "/AccessDenied";
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,8 +41,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseSession();
-
+app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 app.MapControllerRoute(
     name: "default",

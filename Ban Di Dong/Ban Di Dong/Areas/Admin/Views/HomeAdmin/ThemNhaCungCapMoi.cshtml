@@ -1,0 +1,43 @@
+﻿@model Ban_Di_Dong.Data.TbSupplier
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "ThemNhaCungCapMoi";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>THÊM MỚI NHÀ CUNG CẤP</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ThemNhaCungCapMoi">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Tên Nhà Cung Cấp </label>
+                <input asp-for="SupplierName" class="form-control" />
+                <span asp-validation-for="SupplierName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Email Nhà Cung Cấp </label>
+                <input asp-for="SupplierEmail" class="form-control" />
+                <span asp-validation-for="SupplierEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Số Điện Thoại Nhà Cung cấp</label>
+                <input asp-for="SupplierPhone" class="form-control" />
+                <span asp-validation-for="SupplierPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Địa Chỉ Nhà Cung Cấp</label>
+                <input asp-for="SupplierAddress" class="form-control" />
+                <span asp-validation-for="SupplierAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="DanhMucNhaCungCap" class="btn btn-primary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+

@@ -15,6 +15,15 @@ public partial class TbUser
 
     public string? UserPhoneNumber { get; set; }
 
+    public DateTime NgaySinh { get; set; }
+
+   
+
+    public string? DiaChi { get; set; }
+
+    public string? HoTen { get; set; }
+
+
     public int? RoleId { get; set; }
 
     public virtual TbRole? Role { get; set; }
