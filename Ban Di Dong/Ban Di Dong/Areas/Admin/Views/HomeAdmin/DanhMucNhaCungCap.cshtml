@@ -8,6 +8,7 @@
 
 <h1>DANH MỤC NHÀ CUNG CẤP</h1>
 <a asp-action="ThemNhaCungCapMoi" class="btn btn-primary">Thêm nhà cung cấp</a>
+<p>@TempData["Message"]</p>
 <hr />
 <table class="table table-bordered">
     <thead>
@@ -38,8 +39,8 @@
                 <td>@item.SupplierPhone</td>
                 <td>@item.SupplierAddress</td>
                 <td>
-                    <a asp-action="ThemLoaiSanPhamMoi" class="btn btn-primary">Chỉnh Sửa</a>
-                    <a asp-action="ThemLoaiSanPhamMoi" class="btn btn-primary">Xoá</a>
+                    <a asp-action="SuaNhaCungCap" asp-route-maNCC="@item.SupplierId" class="btn btn-primary">Chỉnh Sửa</a>
+                    <a asp-action="XoaNhaCungCap" class="btn btn-primary" asp-route-maNCC="@item.SupplierId">Xoá</a>
 
                 </td>
                 

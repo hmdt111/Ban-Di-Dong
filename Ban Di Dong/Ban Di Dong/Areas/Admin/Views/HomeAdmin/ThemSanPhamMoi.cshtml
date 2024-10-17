@@ -12,7 +12,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post" asp-action="ThemSanPhamMoi">
+        <form method="post" asp-action="ThemSanPhamMoi" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Tên Sản Phẩm Mới </label>
@@ -34,15 +34,16 @@
                 <select asp-for="SupplierId" class ="form-control" asp-items="ViewBag.SupplierId"></select>
             </div>
             <div class="form-group">
+                <label class="control-label">Hình Ảnh Sản Phẩm Mới</label>
+                <input asp-for="Image"  type="file" />
+                @* <span asp-validation-for="Image" class="text-danger"></span> *@
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Thêm" class="btn btn-primary" />
                 <a asp-action="DanhMucSanPham" class="btn btn-primary">Quay Về</a>
             </div>
 
-            <div class="form-group">
-                <label class="control-label">Hình Ảnh Sản Phẩm Mới</label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
+           
         </form>
     </div>
 </div>

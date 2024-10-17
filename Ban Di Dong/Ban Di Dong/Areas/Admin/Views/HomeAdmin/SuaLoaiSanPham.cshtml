@@ -1,0 +1,32 @@
+﻿@model Ban_Di_Dong.Data.TbCategory
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "SuaLoaiSanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Sửa Loại Sản Phẩm</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="SuaLoaiSanPham">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CateId" />
+            <div class="form-group">
+                <label class="control-label">Tên Loại Sản Phẩm</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <a asp-action="DanhMucLoaiSanPham" class="btn btn-primary">Quay Lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

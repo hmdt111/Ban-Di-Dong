@@ -2,6 +2,7 @@
 using Ban_Di_Dong.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
 using System.Linq;
 
 namespace Ban_Di_Dong.Areas.Admin.Controllers
@@ -12,10 +13,11 @@ namespace Ban_Di_Dong.Areas.Admin.Controllers
     public class HomeAdminController : Controller
     {
         private readonly BanDienThoaiContext db;
-
-        public HomeAdminController(BanDienThoaiContext context)
+        private readonly IWebHostEnvironment _env;
+        public HomeAdminController(BanDienThoaiContext context, IWebHostEnvironment env)
         {
             db = context;
+            _env = env;
         }
         [Route("")]
         [Route("index")]
@@ -60,10 +62,24 @@ namespace Ban_Di_Dong.Areas.Admin.Controllers
         [Route("ThemSanPhamMoi")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ThemSanPhamMoi(TbProduct sanPham)
+        public async Task<IActionResult> ThemSanPhamMoi(TbProduct sanPham, IFormFile file)
         {
             if (ModelState.IsValid)
             {
+                //if(sanPham.Image != null)
+                //{
+                //    string uploadsDir = Path.Combine(_env.WebRootPath, "Hinh/Product");
+                //    string imageName = sanPham.Image;
+                //    string filePath = Path.Combine(uploadsDir, imageName);
+
+                    
+                //    using(FileStream stream = new FileStream(filePath, FileMode.Create))
+                //    {
+                //        await file.CopyToAsync(stream);
+                //    }
+                //    sanPham.Image = imageName;
+                    
+                //}
                 db.TbProducts.Add(sanPham);
                 db.SaveChanges();
                 return RedirectToAction("DanhMucSanPham");
@@ -111,9 +127,48 @@ namespace Ban_Di_Dong.Areas.Admin.Controllers
             }
             return View(sup);
         }
+        [Route("SuaNhaCungCap")]
+        [HttpGet]
+        public IActionResult SuaNhaCungCap(int maNCC)
+        {
+            var ncc = db.TbSuppliers.Find(maNCC);
+            return View(ncc);
+        }
+
+        [Route("SuaNhaCungCap")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SuaNhaCungCap(TbSupplier sup)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(sup).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("DanhMucNhaCungCap","HomeAdmin");
+            }
+            return View(sup);
+        }
+        [Route("XoaNhaCungCap")]
+        [HttpGet]
+
+        public IActionResult XoaNhaCungCap(int maNCC)
+        {
+            TempData["Message"] = "";
+            var ncc = db.TbProducts.Where(x => x.SupplierId == maNCC).ToList();
+            if (ncc.Count > 0)
+            {
+                TempData["Message"] = "Không xoá được nhà cung cấp này";
+                return RedirectToAction("DanhMucNhaCungCap", "HomeAdmin");
+            }
+            db.Remove(db.TbCategories.Find(maNCC));
+            db.SaveChanges();
+            TempData["Message"] = "Xoá loại sản phẩm thành công";
+            return RedirectToAction("DanhMucNhaCungCap", "HomeAdmin");
+        }
+
         #endregion
 
-
+        #region Loai
         [Route("danhmucloaisanpham")]
         public IActionResult DanhMucLoaiSanPham()
         {
@@ -149,5 +204,46 @@ namespace Ban_Di_Dong.Areas.Admin.Controllers
             }
             return View(cat);
         }
+
+        [Route("SuaLoaiSanPham")]
+        [HttpGet]
+        public IActionResult SuaLoaiSanPham(int maLoai)
+        {
+            var Loai = db.TbCategories.Find(maLoai);
+            return View(Loai);
+        }
+
+        [Route("SuaLoaiSanPham")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SuaLoaiSanPham(TbCategory cat)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(cat).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("DanhMucLoaiSanPham", "HomeAdmin");
+            }
+            return View(cat);
+        }
+
+        [Route("XoaLoaiSanPham")]
+        [HttpGet]
+
+        public IActionResult XoaLoaiSanPham(int maLoai)
+        {
+            TempData["Message"] = "";
+            var Loai = db.TbProducts.Where(x=> x.CateId== maLoai).ToList();
+            if (Loai.Count > 0)
+            {
+                TempData["Message"] = "Không xoá được loại sản phẩm này";
+                return RedirectToAction("DanhMucLoaiSanPham", "HomeAdmin");
+            }
+            db.Remove(db.TbCategories.Find(maLoai));
+            db.SaveChanges();
+            TempData["Message"] = "Xoá loại sản phẩm thành công";
+            return RedirectToAction("DanhMucLoaiSanPham", "HomeAdmin");
+        }
+        #endregion
     }
 }

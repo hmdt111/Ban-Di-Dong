@@ -7,6 +7,7 @@
 
 <h1>DANH MỤC LOẠI SẢN PHẨM</h1>
 <a asp-action="ThemLoaiSanPhamMoi" class="btn btn-primary">Thêm Loại Sản Phẩm</a>
+<p>@TempData["Message"]</p>
 <hr />
 <table class="table table-bordered">
     <thead>
@@ -30,8 +31,8 @@
                 <td>@item.CateId</td>
                 <td>@item.Name</td>
                 <td>
-                    <a asp-action="ThemLoaiSanPhamMoi" class="btn btn-primary">Chỉnh Sửa</a>
-                    <a asp-action="ThemLoaiSanPhamMoi" class="btn btn-primary">Xoá</a>
+                    <a asp-action="SuaLoaiSanPham" class="btn btn-primary" asp-route-maLoai="@item.CateId">Chỉnh Sửa</a>
+                    <a asp-action="XoaLoaiSanPham" class="btn btn-primary" asp-route-maLoai="@item.CateId">Xoá</a>
 
                 </td>
 
